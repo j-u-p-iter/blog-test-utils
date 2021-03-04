@@ -10,7 +10,7 @@ services: mongodb
 jobs:
   include:
     - stage: validate
-      script: jupiter-scripts validate
+      script: jupiter-scripts lint
     - stage: deploy
       script: yarn run build
       after_success: jupiter-scripts deploy

@@ -1,6 +1,6 @@
 {
   "name": "@j.u.p.iter/blog-test-utils",
-  "version": "0.0.1",
+  "version": "0.0.0-semantically-released",
   "description": "The place to store test utils to share between client side and backend side of the blog",
   "main": "dist/lib/build-test-utils.cjs.js",
   "module": "dist/lib/build-test-utils.esm.js",

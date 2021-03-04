@@ -1,0 +1,26 @@
+{
+  "name": "@j.u.p.iter/blog-test-utils",
+  "version": "0.0.0-semantically-released",
+  "description": "The place to store test utils to share between client side and backend side of the blog",
+  "main": "dist/lib/build-test-utils.cjs.js",
+  "module": "dist/lib/build-test-utils.esm.js",
+  "typings": "dist/types",
+  "repository": "git@github.com:j-u-p-iter/blog-test-utils.git",
+  "author": "Leontyev Kirill (j.u.p.iter) <pn79122821224@gmail.com> (http://j-u-p-iter.ru/)",
+  "license": "MIT",
+  "scripts": {
+    "commit": "jupiter-scripts precommit --allowJs",
+    "build": "jupiter-scripts build --bundle",
+    "start": "yarn run build --watch",
+    "lint": "jupiter-scripts lint --format codeFrame",
+    "lint:fix": "yarn run lint --fix",
+    "test": "jupiter-scripts test"
+  },
+  "dependencies": {
+    "faker": "^5.4.0"
+  },
+  "devDependencies": {
+    "mongoose": "^5.11.18",
+    "@j.u.p.iter/jupiter-scripts": "^1.17.0"
+  }
+}

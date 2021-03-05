@@ -1,5 +1,4 @@
 import faker from "faker";
-import mongoose from "mongoose/browser";
 
 interface User {
   name: string;
@@ -10,64 +9,72 @@ interface User {
   role?: string;
 }
 
-export const createUser = (additionalData: Partial<User> = {}): User => {
-  return {
-    name: faker.name.firstName(),
-    email: faker.internet.email().toLowerCase(),
-    website: faker.internet.url(),
-    location: faker.address.city(),
-    password: faker.internet.password(5),
-    ...additionalData
-  };
-};
-
-export const createAdmin = (): User => createUser({ role: "admin" });
-
 interface Post {
   title: string;
   description: string;
   body: string;
-  author?: mongoose.Types.ObjectId;
+  author?: any;
 }
 
 interface CreatePostOptions {
   withAuthor?: boolean;
 }
 
-export const createPost = ({
-  withAuthor = false
-}: CreatePostOptions = {}): Post => {
-  const post: Post = {
-    title: faker.lorem.words(5),
-    description: faker.lorem.sentences(5),
-    body: faker.lorem.sentences(20)
+export const createBlogTestUtils = mongoose => {
+  const createUser = (additionalData: Partial<User> = {}): User => {
+    return {
+      name: faker.name.firstName(),
+      email: faker.internet.email().toLowerCase(),
+      website: faker.internet.url(),
+      location: faker.address.city(),
+      password: faker.internet.password(5),
+      ...additionalData
+    };
   };
 
-  if (withAuthor) {
-    post.author = mongoose.Types.ObjectId();
-  }
+  const createAdmin = (): User => createUser({ role: "admin" });
 
-  return post;
-};
+  const createPost = ({ withAuthor = false }: CreatePostOptions = {}): Post => {
+    const post: Post = {
+      title: faker.lorem.words(5),
+      description: faker.lorem.sentences(5),
+      body: faker.lorem.sentences(20)
+    };
 
-export const createPosts = (
-  count: number,
-  options: CreatePostOptions = {}
-): Post[] => createData("post", count, options);
+    if (withAuthor) {
+      post.author = mongoose.Types.ObjectId();
+    }
 
-export const createData = (type, count, options = {}) => {
-  const mapTypeToFactoryFn = {
-    post: createPost,
-    user: createUser
+    return post;
   };
 
-  const resultData = [];
-  let counter = count;
+  const createPosts = (
+    count: number,
+    options: CreatePostOptions = {}
+  ): Post[] => createData("post", count, options);
 
-  while (counter) {
-    resultData.push(mapTypeToFactoryFn[type](options));
-    counter -= 1;
-  }
+  const createData = (type, count, options = {}) => {
+    const mapTypeToFactoryFn = {
+      post: createPost,
+      user: createUser
+    };
 
-  return resultData;
+    const resultData = [];
+    let counter = count;
+
+    while (counter) {
+      resultData.push(mapTypeToFactoryFn[type](options));
+      counter -= 1;
+    }
+
+    return resultData;
+  };
+
+  return {
+    createUser,
+    createAdmin,
+    createPost,
+    createPosts,
+    createData
+  };
 };

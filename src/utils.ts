@@ -18,6 +18,7 @@ interface Post {
 
 interface CreatePostOptions {
   withAuthor?: boolean;
+  additionalData?: { [key: string]: any };
 }
 
 export const createBlogTestUtils = mongoose => {
@@ -34,11 +35,15 @@ export const createBlogTestUtils = mongoose => {
 
   const createAdmin = (): User => createUser({ role: "admin" });
 
-  const createPost = ({ withAuthor = false }: CreatePostOptions = {}): Post => {
+  const createPost = ({
+    withAuthor = false,
+    additionalData = {}
+  }: CreatePostOptions = {}): Post => {
     const post: Post = {
       title: faker.lorem.words(5),
       description: faker.lorem.sentences(5),
-      body: faker.lorem.sentences(20)
+      body: faker.lorem.sentences(20),
+      ...additionalData
     };
 
     if (withAuthor) {

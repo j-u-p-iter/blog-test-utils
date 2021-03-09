@@ -20,7 +20,6 @@
     "faker": "^5.4.0"
   },
   "devDependencies": {
-    "@j.u.p.iter/jupiter-scripts": "^1.17.0",
-    "mongoose": "^5.11.18"
+    "@j.u.p.iter/jupiter-scripts": "^1.17.0"
   }
 }

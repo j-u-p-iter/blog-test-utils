@@ -1,5 +1,10 @@
 import faker from "faker";
 
+export enum DataType {
+  Post = "post",
+  User = "user"
+}
+
 interface User {
   name: string;
   email: string;
@@ -50,9 +55,13 @@ export const createPost = ({
 export const createPosts = (
   count: number,
   options: CreatePostOptions = {}
-): Post[] => createData("post", count, options);
+): Post[] => createData<Post>(DataType.Post, count, options);
 
-export const createData = (type, count, options = {}) => {
+export const createData = <T>(
+  type: DataType,
+  count: number,
+  options = {}
+): T[] => {
   const mapTypeToFactoryFn = {
     post: createPost,
     user: createUser
